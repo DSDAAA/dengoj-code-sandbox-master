@@ -66,7 +66,12 @@ public abstract class JavaCodeSandboxTemplate implements CodeSandbox {
 //        4. 收集整理输出结果
         ExecuteCodeResponse outputResponse = getOutputResponse(executeMessageList);
 
-//        5. 文件清理
+//        5. 文件清理(5秒后)
+        try {
+            Thread.sleep(5000l);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         boolean b = deleteFile(userCodeFile);
         if (!b) {
             log.error("deleteFile error, userCodeFilePath = {}", userCodeFile.getAbsolutePath());
@@ -77,6 +82,7 @@ public abstract class JavaCodeSandboxTemplate implements CodeSandbox {
 
     /**
      * 1. 把用户的代码保存为文件
+     *
      * @param code 用户代码
      * @return
      */
@@ -97,6 +103,7 @@ public abstract class JavaCodeSandboxTemplate implements CodeSandbox {
 
     /**
      * 2、编译代码
+     *
      * @param userCodeFile
      * @return
      */
@@ -117,6 +124,7 @@ public abstract class JavaCodeSandboxTemplate implements CodeSandbox {
 
     /**
      * 3、执行文件，获得执行结果列表
+     *
      * @param userCodeFile
      * @param inputList
      * @return
@@ -152,6 +160,7 @@ public abstract class JavaCodeSandboxTemplate implements CodeSandbox {
 
     /**
      * 4、获取输出结果
+     *
      * @param executeMessageList
      * @return
      */
@@ -189,6 +198,7 @@ public abstract class JavaCodeSandboxTemplate implements CodeSandbox {
 
     /**
      * 5、删除文件
+     *
      * @param userCodeFile
      * @return
      */
