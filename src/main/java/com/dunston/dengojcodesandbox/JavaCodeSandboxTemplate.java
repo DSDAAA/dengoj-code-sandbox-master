@@ -67,10 +67,10 @@ public abstract class JavaCodeSandboxTemplate implements CodeSandbox {
         ExecuteCodeResponse outputResponse = getOutputResponse(executeMessageList);
 
 //        5. 文件清理
-//        boolean b = deleteFile(userCodeFile);
-//        if (!b) {
-//            log.error("deleteFile error, userCodeFilePath = {}", userCodeFile.getAbsolutePath());
-//        }
+        boolean b = deleteFile(userCodeFile);
+        if (!b) {
+            log.error("deleteFile error, userCodeFilePath = {}", userCodeFile.getAbsolutePath());
+        }
         return outputResponse;
     }
 
