@@ -14,16 +14,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/judge")
 public class MainController {
 
     // 定义鉴权请求头和密钥
     private static final String AUTH_REQUEST_HEADER = "auth";
 
     private static final String AUTH_REQUEST_SECRET = "secretKey";
-
-    @Resource
-    private JavaDockerCodeSandbox javaDockerCodeSandbox;
 
     @Resource
     private JavaNativeCodeSandbox javaNativeCodeSandbox;
@@ -51,6 +48,6 @@ public class MainController {
         if (executeCodeRequest == null) {
             throw new RuntimeException("请求参数为空");
         }
-        return javaDockerCodeSandbox.executeCode(executeCodeRequest);
+        return javaNativeCodeSandbox.executeCode(executeCodeRequest);
     }
 }

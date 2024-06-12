@@ -34,7 +34,7 @@ public class JavaDockerCodeSandbox extends JavaCodeSandboxTemplate {
     private static final Boolean FIRST_INIT = true;
 
     public static void main(String[] args) {
-        JavaDockerCodeSandbox javaDockerCodeSandbox = new JavaDockerCodeSandbox();
+        JavaDockerCodeSandbox javaNativeCodeSandbox = new JavaDockerCodeSandbox();
         ExecuteCodeRequest executeCodeRequest = new ExecuteCodeRequest();
         executeCodeRequest.setInputList(Arrays.asList("1 2", "1 3"));
         String code = ResourceUtil.readStr("testCode/simpleComputeArgs/Main.java", StandardCharsets.UTF_8);
@@ -42,7 +42,7 @@ public class JavaDockerCodeSandbox extends JavaCodeSandboxTemplate {
 //        String code = ResourceUtil.readStr("testCode/simpleCompute/Main.java", StandardCharsets.UTF_8);
         executeCodeRequest.setCode(code);
         executeCodeRequest.setLanguage("java");
-        ExecuteCodeResponse executeCodeResponse = javaDockerCodeSandbox.executeCode(executeCodeRequest);
+        ExecuteCodeResponse executeCodeResponse = javaNativeCodeSandbox.executeCode(executeCodeRequest);
         System.out.println(executeCodeResponse);
     }
 
@@ -88,7 +88,7 @@ public class JavaDockerCodeSandbox extends JavaCodeSandboxTemplate {
         hostConfig.withMemory(100 * 1000 * 1000L);
         hostConfig.withMemorySwap(0L);
         hostConfig.withCpuCount(1L);
-//        hostConfig.withSecurityOpts(Arrays.asList("seccomp=安全管理配置字符串"));
+        hostConfig.withSecurityOpts(Arrays.asList("seccomp=安全管理配置字符串"));
         hostConfig.setBinds(new Bind(userCodeParentPath, new Volume("/app")));
         CreateContainerResponse createContainerResponse = containerCmd
                 .withHostConfig(hostConfig)
@@ -203,6 +203,3 @@ public class JavaDockerCodeSandbox extends JavaCodeSandboxTemplate {
         return executeMessageList;
     }
 }
-
-
-
